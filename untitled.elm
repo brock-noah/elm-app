@@ -1,4 +1,4 @@
-import Html exposing (..)
+import Html exposing (Html, text, beginnerProgram, div, input, ol, li, button)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import String
@@ -6,17 +6,17 @@ import String
 type alias Note = { name : String , body : String }
 
 type Model = List Note
+type Msg = Add
+
 model = [{ name = "yes", body = "yes"}]
 main =
   beginnerProgram { model = model, view = view, update = update }
 
-
-view : Model -> Html msg
-view model = div [] [
-    input [] []
+view : List Note -> Html Msg
+view model = div [] 
+  [  button [ onClick Add ] [ text "+" ]
+  ,  makeList model
   ]
-
-
 
 other =
   makeList
@@ -24,25 +24,15 @@ other =
     , { name = "no", body = "no"}
     ]
 
-makeList : List Note -> Html msg
+makeList : List Note -> Html a
 makeList notes = ol [] (List.map viewString notes)
 
-viewString : Note -> Html msg
+viewString : Note -> Html a
 viewString note = li [] [ text (String.toUpper note.body) ]
 
---userControl: a -> Html msg
---userControl a = div [] [
---  input [placeholder "Note", onInput Add] []
---  button [ onClick Add ] [ text "+" ]
---]
-
-type Msg = Add
-update : Msg List Note -> List Note
+update : Msg -> List Note -> List Note
 update msg model =
   case msg of
     Add ->
       model ++ [ { name = "yes", body = "yes"} ]
-
-    _ ->
-      model
 

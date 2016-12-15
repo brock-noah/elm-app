@@ -16,12 +16,6 @@ view model = div []
   ,  makeList model
   ]
 
-other =
-  makeList
-    [ { name = "yes", body = "yes"}
-    , { name = "no", body = "no"}
-    ]
-
 makeList : List Note -> Html a
 makeList notes = ol [] (List.map viewString notes)
 
@@ -33,5 +27,3 @@ update msg model =
   case msg of
     Add ->
       model ++ [ { name = "yes", body = "yes"} ]
-
-

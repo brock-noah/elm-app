@@ -1,4 +1,4 @@
-module Note exposing (Model, Note)
+module Note exposing (NoteList, Note)
 
 type alias Note = { name : String , body : String }
-type Model = List Note
+type alias NoteList = List Note

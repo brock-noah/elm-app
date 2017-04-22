@@ -4,10 +4,7 @@ import Html.Events exposing (..)
 import String
 import Note exposing (NoteList, Note)
 
-type Action = Add | Restart | Insert String
-
 type alias Model = NoteList
-
 model = [{ name = "name", body = "body"}]
 main =
   beginnerProgram { model = model, view = view, update = update }
@@ -24,9 +21,14 @@ view model = div []
 makeList : List Note -> Html a
 makeList notes = ol [] (List.map viewString notes)
 
-viewString : Note -> Html a
-viewString note = li [] [ text (String.toUpper note.body ++ note.name) ]
+itemStyle =
+  style
+    [ ("backgroundColor", "rgb(238, 238, 236)"), ("padding", "5px") ]
 
+viewString : Note -> Html a
+viewString note = li [ itemStyle ] [ text (String.toUpper (note.name) ++ note.body)]
+
+type Action = Add | Restart | Insert String
 update : Action -> List Note -> List Note
 update msg model =
   case msg of
@@ -34,5 +36,5 @@ update msg model =
       model ++ [ { name = "name", body = "yes"} ]
     Restart ->
       []
-    Insert name ->
-      model ++ [ { name = name, body = "a"}]
+    Insert body ->
+      model ++ [ { name = "a", body = body}]
